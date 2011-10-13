@@ -1,5 +1,6 @@
 require 'catmother/binary_helpers'
 require 'catmother/invalid_classfile_error'
+require 'catmother/attribute_parser'
 
 module CatMother
   class JavaClass
@@ -188,8 +189,9 @@ module CatMother
 
       attributes = []
       attributes_count = BinaryHelpers::read_u2(io)
+      parser = AttributeParser.new(@constants)
       attributes_count.times do
-        parse_attribute(io, attributes)
+        attributes.push(parser.parse(io))
       end
 
       @fields.push({:access_flags => access_flags, :name => name, :descriptor => descriptor, :attributes => attributes})
@@ -209,8 +211,9 @@ module CatMother
 
       attributes = []
       attributes_count = BinaryHelpers::read_u2(io)
+      parser = AttributeParser.new(@constants)
       attributes_count.times do
-        parse_attribute(io, attributes)
+        attributes.push(parser.parse(io))
       end
 
       @methods.push({:access_flags => access_flags, :name => name, :descriptor => descriptor, :attributes => attributes})
@@ -219,15 +222,10 @@ module CatMother
     def parse_attributes(io)
       attributes_count = BinaryHelpers::read_u2(io)
       
+      parser = AttributeParser.new(@constants)
       attributes_count.times do
-        parse_attribute(io, @attributes)
+        @attributes.push(parser.parse(io))
       end
-    end
-    def parse_attribute(io, list)
-      name = BinaryHelpers::read_u2(io)
-      length = BinaryHelpers::read_u4(io)
-
-      io.read(length)
     end
 
     def name

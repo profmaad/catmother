@@ -1,15 +1,19 @@
 require 'catmother/binary_helpers'
+require 'catmother/attribute_parser'
 
 module CatMother
   module Attribute
     class Code
+      IDENTIFIER = "Code"
+
       attr_reader :name
       attr_reader :max_stack, :max_locals, :code_length, :code_start, :exceptions, :attributes
       attr_reader :code
 
-      def initialize(io, length)
+      def initialize(io, length, constants)
         @exceptions = []
         @attributes = []
+        @constants = constants
 
         parse(io)
       end
@@ -25,6 +29,7 @@ module CatMother
 
         @code_length = BinaryHelpers::read_u4(io)
         @code_start = io.pos
+        io.read(@code_length)
 
         parse_exceptions(io)
         parse_attributes(io)
@@ -41,19 +46,13 @@ module CatMother
         @exceptions.push({:start_pc => BinaryHelpers::read_u2(io), :end_pc => BinaryHelpers::read_u2(io), :handler_pc => BinaryHelpers::read_u2(io), :catch_type => BinaryHelpers::read_u2(io)})
       end
 
-      # CODE DUPLICATION AHEAD !!!
       def parse_attributes(io)
         attributes_count = BinaryHelpers::read_u2(io)
-        
+
+        parser = AttributeParser.new(@constants)
         attributes_count.times do
-          parse_attribute(io, @attributes)
+          @attributes.push(parser.parse(io))
         end
-      end
-      def parse_attribute(io, list)
-        name = BinaryHelpers::read_u2(io)
-        length = BinaryHelpers::read_u4(io)
-        
-        io.read(length)
       end
     end
   end

@@ -12,6 +12,9 @@ if input_filename.nil?
   exit
 end
 
+print "Available attribute parsers: "
+pp CatMother::Attribute.constants
+
 java_class = CatMother::JavaClass.new(input_filename)
 puts "Class Name: #{java_class.name}"
 puts "Class File Version: #{java_class.version}"
@@ -21,7 +24,11 @@ java_class.constants.each_with_index do |constant, index|
   print "\t#{index}: "
   pp constant
 end
+print "Interfaces: "
 pp java_class.interfaces
+print "Fields: "
 pp java_class.fields
+print "Methods: "
 pp java_class.methods
+print "Attributes: "
 pp java_class.attributes

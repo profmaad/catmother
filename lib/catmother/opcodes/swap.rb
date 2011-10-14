@@ -9,7 +9,11 @@ module CatMother
       SHORT_DESCRIPTION = "Swap the top two operand stack values"
       DESCRIPTION = ""
 
-      def initialize(io)
+      def initialize(io, pc)
+      end
+
+      def length
+        return 0
       end
     end
   end

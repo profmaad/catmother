@@ -8,12 +8,16 @@ module CatMother
       PUSHES = 0
       SHORT_DESCRIPTION = "Branch if reference comparison succeeds (not equal)"
       DESCRIPTION = ""
+      
+      attr_reader :branchbyte1, :branchbyte2
 
-	attr_reader :branchbyte1, :branchbyte2
-
-      def initialize(io)
+      def initialize(io, pc)
 	@branchbyte1 = io.readbyte
 	@branchbyte2 = io.readbyte
+      end
+
+      def length
+        return 2
       end
     end
   end

@@ -9,11 +9,15 @@ module CatMother
       SHORT_DESCRIPTION = "Fetch field from object"
       DESCRIPTION = ""
 
-	attr_reader :indexbyte1, :indexbyte2
+      attr_reader :indexbyte1, :indexbyte2
 
-      def initialize(io)
+      def initialize(io, pc)
 	@indexbyte1 = io.readbyte
 	@indexbyte2 = io.readbyte
+      end
+
+      def length
+        return 2
       end
     end
   end

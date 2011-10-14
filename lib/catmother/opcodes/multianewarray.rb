@@ -11,10 +11,14 @@ module CatMother
 
 	attr_reader :indexbyte1, :indexbyte2, :dimensions
 
-      def initialize(io)
+      def initialize(io, pc)
 	@indexbyte1 = io.readbyte
 	@indexbyte2 = io.readbyte
 	@dimensions = io.readbyte
+      end
+
+      def length
+        return 3
       end
     end
   end

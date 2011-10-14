@@ -9,7 +9,11 @@ module CatMother
       SHORT_DESCRIPTION = "Duplicate the top one or two operand stack values and insert two, three, or four values down"
       DESCRIPTION = ""
 
-      def initialize(io)
+      def initialize(io, pc)
+      end
+
+      def length
+        return 0
       end
     end
   end

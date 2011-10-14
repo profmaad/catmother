@@ -1,5 +1,6 @@
 require 'catmother/binary_helpers'
 require 'catmother/attribute_parser'
+require 'catmother/bytecode_parser'
 
 module CatMother
   module Attribute
@@ -7,7 +8,7 @@ module CatMother
       IDENTIFIER = "Code"
 
       attr_reader :max_stack, :max_locals, :code_length, :code_start, :exceptions, :attributes
-      attr_reader :code
+      attr_reader :code, :disassembly
 
       def initialize(io, length, constants)
         @exceptions = []
@@ -21,6 +22,10 @@ module CatMother
         io.pos = @code_start
         @code = io.read(@code_length)
       end
+      def parse_code(io)
+        parser = BytecodeParser.new
+        @disassembly = parser.parse(io, @code_length)
+      end
 
       def parse(io)
         @max_stack = BinaryHelpers::read_u2(io)
@@ -28,7 +33,7 @@ module CatMother
 
         @code_length = BinaryHelpers::read_u4(io)
         @code_start = io.pos
-        io.read(@code_length)
+        parse_code(io)
 
         parse_exceptions(io)
         parse_attributes(io)

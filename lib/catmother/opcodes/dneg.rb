@@ -9,7 +9,11 @@ module CatMother
       SHORT_DESCRIPTION = "Negate double"
       DESCRIPTION = ""
 
-      def initialize(io)
+      def initialize(io, pc)
+      end
+
+      def length
+        return 0
       end
     end
   end

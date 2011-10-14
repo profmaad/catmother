@@ -9,11 +9,15 @@ module CatMother
       SHORT_DESCRIPTION = "Push short"
       DESCRIPTION = ""
 
-	attr_reader :byte1, :byte2
+      attr_reader :byte1, :byte2
 
-      def initialize(io)
+      def initialize(io, pc)
 	@byte1 = io.readbyte
 	@byte2 = io.readbyte
+      end
+
+      def length
+        return 2
       end
     end
   end

@@ -9,13 +9,17 @@ module CatMother
       SHORT_DESCRIPTION = "Jump subroutine (wide index)"
       DESCRIPTION = ""
 
-	attr_reader :branchbyte1, :branchbyte2, :branchbyte3, :branchbyte4
+      attr_reader :branchbyte1, :branchbyte2, :branchbyte3, :branchbyte4
 
-      def initialize(io)
+      def initialize(io, pc)
 	@branchbyte1 = io.readbyte
 	@branchbyte2 = io.readbyte
 	@branchbyte3 = io.readbyte
 	@branchbyte4 = io.readbyte
+      end
+
+      def length
+        return 2
       end
     end
   end

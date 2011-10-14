@@ -9,7 +9,11 @@ module CatMother
       SHORT_DESCRIPTION = "Push float"
       DESCRIPTION = "Push the float constant 0.0 onto the operand stack."
 
-      def initialize(io)
+      def initialize(io, pc)
+      end
+
+      def length
+        return 0
       end
     end
   end

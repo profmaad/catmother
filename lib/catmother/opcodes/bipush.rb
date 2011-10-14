@@ -8,11 +8,15 @@ module CatMother
       PUSHES = 1
       SHORT_DESCRIPTION = "Push byte"
       DESCRIPTION = ""
-
-	attr_reader :byte
-
-      def initialize(io)
+      
+      attr_reader :byte
+      
+      def initialize(io, pc)
 	@byte = io.readbyte
+      end
+
+      def length
+        return 1
       end
     end
   end

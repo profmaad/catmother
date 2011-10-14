@@ -9,13 +9,17 @@ module CatMother
       SHORT_DESCRIPTION = "Invoke interface method"
       DESCRIPTION = ""
 
-	attr_reader :indexbyte1, :indexbyte2, :count
+      attr_reader :indexbyte1, :indexbyte2, :count
 
-      def initialize(io)
+      def initialize(io, pc)
 	@indexbyte1 = io.readbyte
 	@indexbyte2 = io.readbyte
 	@count = io.readbyte
 	io.readbyte #0
+      end
+
+      def length
+        return 4
       end
     end
   end

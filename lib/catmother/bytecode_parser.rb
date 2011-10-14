@@ -8,12 +8,22 @@ module CatMother
       end
     end
 
-    def parse(io)
-      disassembly = []
+    def parse(io, length)
+      disassembly = {}
 
-      while not io.eof?
-        opcode = io.read(1)
-        disassembly.push(@opcodes[opcode].new(io))
+      pc = 0
+      while pc < length
+        opcode = io.readbyte
+        
+        opcode_parser = @opcodes[opcode]        
+        unless opcode_parser.nil?
+          result = opcode_parser.new(io, pc)
+          pc += (1+result.length)
+          disassembly[pc] = result
+        else
+          puts "unknown opcode: #{opcode}"
+          return
+        end
       end
 
       return disassembly

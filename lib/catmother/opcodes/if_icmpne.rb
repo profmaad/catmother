@@ -9,11 +9,15 @@ module CatMother
       SHORT_DESCRIPTION = "Branch if int comparison succeeds (=!)"
       DESCRIPTION = ""
 
-        attr_reader :branchbyte1, :branchbyte2
+      attr_reader :branchbyte1, :branchbyte2
 
-      def initialize(io)
+      def initialize(io, pc)
         @branchbyte1 = io.readbyte
         @branchbyte2 = io.readbyte
+      end
+
+      def length
+        return 2
       end
     end
   end

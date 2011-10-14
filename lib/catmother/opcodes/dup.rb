@@ -9,7 +9,11 @@ module CatMother
       SHORT_DESCRIPTION = "Duplicate the top operand stack value"
       DESCRIPTION = ""
 
-      def initialize(io)
+      def initialize(io, pc)
+      end
+
+      def length
+        return 0
       end
     end
   end

@@ -9,21 +9,25 @@ module CatMother
       SHORT_DESCRIPTION = "Create new array"
       DESCRIPTION = ""
 
-	class ArrayType
-		BOOLEAN = 4
-		CHAR = 5
-		FLOAT = 6
-		DOUBLE = 7
-		BYTE = 8
-		SHORT = 9
-		INT = 10
-		LONG = 11
-	end
+      class ArrayType
+        BOOLEAN = 4
+        CHAR = 5
+        FLOAT = 6
+        DOUBLE = 7
+        BYTE = 8
+        SHORT = 9
+        INT = 10
+        LONG = 11
+      end
 
-	attr_reader :atype
+      attr_reader :atype
 
-      def initialize(io)
+      def initialize(io, pc)
 	@atype = io.readbyte
+      end
+
+      def length
+        return 1
       end
     end
   end

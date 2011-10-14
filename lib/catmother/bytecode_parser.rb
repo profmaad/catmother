@@ -22,7 +22,7 @@ module CatMother
           pc += (1+result.length)
         else
           puts "unknown opcode: #{opcode}"
-          return
+          return nil
         end
       end
 

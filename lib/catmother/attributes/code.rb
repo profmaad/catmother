@@ -25,6 +25,9 @@ module CatMother
       def parse_code(io)
         parser = BytecodeParser.new
         @disassembly = parser.parse(io, @code_length)
+        if @disassembly.nil?
+          io.pos = @code_start+@code_length
+        end
       end
 
       def parse(io)

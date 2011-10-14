@@ -2,13 +2,13 @@ require 'catmother/binary_helpers'
 
 module CatMother
   module Attribute
-    class ConstantValue
-      IDENTIFIER = "ConstantValue"
+    class SourceFile
+      IDENTIFIER = "SourceFile"
 
-      attr_reader :value
+      attr_reader :source_file
 
       def initialize(io, length, constants)
-        @value = BinaryHelpers::read_u2(io)
+        @source_file = BinaryHelpers::read_u2(io)
       end
     end
   end

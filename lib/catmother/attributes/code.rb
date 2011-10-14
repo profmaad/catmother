@@ -6,7 +6,6 @@ module CatMother
     class Code
       IDENTIFIER = "Code"
 
-      attr_reader :name
       attr_reader :max_stack, :max_locals, :code_length, :code_start, :exceptions, :attributes
       attr_reader :code
 

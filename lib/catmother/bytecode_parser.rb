@@ -18,8 +18,8 @@ module CatMother
         opcode_parser = @opcodes[opcode]        
         unless opcode_parser.nil?
           result = opcode_parser.new(io, pc)
-          pc += (1+result.length)
           disassembly[pc] = result
+          pc += (1+result.length)
         else
           puts "unknown opcode: #{opcode}"
           return

@@ -1,6 +1,6 @@
 module CatMother
   module Opcode
-    class ldc_w
+    class Ldc_w
       MNEMONIC = "ldc_w"
       OPCODE = 0x13
       OPERANDS = 2

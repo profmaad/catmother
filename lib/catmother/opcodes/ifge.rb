@@ -1,6 +1,6 @@
 module CatMother
   module Opcode
-    class ifge
+    class Ifge
       MNEMONIC = "ifge"
       OPCODE = 0x9c
       OPERANDS = 2

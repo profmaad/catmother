@@ -1,0 +1,16 @@
+module CatMother
+  module Opcode
+    class Dconst_0
+      MNEMONIC = "dconst_0"
+      OPCODE = 0x0e
+      OPERANDS = 0
+      POPS = 0
+      PUSHES = 1
+      SHORT_DESCRIPTION = "Push double"
+      DESCRIPTION = "Push the double constant 0.0 onto the operand stack."
+
+      def initialize(io)
+      end
+    end
+  end
+end

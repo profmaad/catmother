@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Goto_w
@@ -9,13 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Branch always (wide index)"
       DESCRIPTION = ""
       
-      attr_reader :branchbyte1, :branchbyte2, :branchbyte3, :branchbyte4
+      attr_reader :branch_offset
 
       def initialize(io, pc)
-	@branchbyte1 = io.readbyte
-	@branchbyte2 = io.readbyte
-	@branchbyte3 = io.readbyte
-	@branchbyte4 = io.readbyte
+        @branch_offset = BinaryHelpers::read_s4(io)
       end
 
       def length

@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Invokeinterface
@@ -9,11 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Invoke interface method"
       DESCRIPTION = ""
 
-      attr_reader :indexbyte1, :indexbyte2, :count
+      attr_reader :index, :count
 
       def initialize(io, pc)
-	@indexbyte1 = io.readbyte
-	@indexbyte2 = io.readbyte
+	@index = BinaryHelpers::read_u2(io)
 	@count = io.readbyte
 	io.readbyte #0
       end

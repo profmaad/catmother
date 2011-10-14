@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class New
@@ -12,8 +14,7 @@ module CatMother
       attr_reader :indexbyte1, :indexbyte2
 
       def initialize(io, pc)
-	@indexbyte1 = io.readbyte
-	@indexbyte2 = io.readbyte
+	@index = BinaryHelpers::read_u2(io)
       end
 
       def length

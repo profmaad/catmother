@@ -11,8 +11,8 @@ module CatMother
       SHORT_DESCRIPTION = "Access jump table by key match and jump"
       DESCRIPTION = ""
 
-      attr_reader :defaultbyte1, :defaultbyte2, :defaultbyte3, :defaultbyte4
-      attr_reader :npairs1, :npairs2, :npairs3, :npairs4
+      attr_reader :default
+      attr_reader :npairs
       attr_reader :pairs
 
       def initialize(io, pc)
@@ -23,19 +23,9 @@ module CatMother
           @length += 1
         end
         
-        @defaultbyte = io.read(4)
-        @defaultbyte1 = @defaultbyte[0]
-        @defaultbyte2 = @defaultbyte[1]
-        @defaultbyte3 = @defaultbyte[2]
-        @defaultbyte4 = @defaultbyte[3]
-        @defaultbyte = BinaryHelpers::unsigned_to_signed(@defaultbyte.unpack('N')[0])
+        @default = BinaryHelpers::read_s4(io)
 
-        @npairs = io.read(4)
-        @npairs1 = @npairs[0]
-        @npairs2 = @npairs[1]
-        @npairs3 = @npairs[2]
-        @npairs4 = @npairs[3]
-        @npairs = BinaryHelpers::unsigned_to_signed(@npairs.unpack('N')[0])
+        @npairs = BinaryHelpers::read_s4(io)
         
         return unless @npairs >= 0
 

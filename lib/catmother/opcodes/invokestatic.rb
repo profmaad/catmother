@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Invokestatic
@@ -9,11 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Invoke a class (static) method"
       DESCRIPTION = ""
 
-      attr_reader :indexbyte1, :indexbyte2
+      attr_reader :index
 
       def initialize(io, pc)
-	@indexbyte1 = io.readbyte
-	@indexbyte2 = io.readbyte
+	@index = BinaryHelpers::read_u2(io)
       end
 
       def length

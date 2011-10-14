@@ -8,8 +8,8 @@ module CatMother
       PUSHES = 1
       SHORT_DESCRIPTION = "Load reference from local variable"
       DESCRIPTION = ""
-
-	attr_reader :index
+      
+      attr_reader :index
 
       def initialize(io, pc)
 	@index = io.readbyte

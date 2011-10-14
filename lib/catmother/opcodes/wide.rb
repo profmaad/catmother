@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Wide
@@ -9,17 +11,15 @@ module CatMother
       SHORT_DESCRIPTION = "Extend local variable index by additional bytes"
       DESCRIPTION = ""
 
-      attr_reader :opcode, :indexbyte1, :indexbyte2
-      attr_reader :constbyte1, :constbyte2
+      attr_reader :opcode, :index
+      attr_reader :const
 
       def initialize(io, pc)
 	@opcode = io.readbyte
-	@indexbyte1 = io.readbyte
-	@indexbyte2 = io.readbyte
+	@index = BinaryHelpers::read_u2(io)
 
 	if @opcode == 0x84 # iinc
-          @constbyte1 = io.readbyte
-          @constbyte2 = io.readbyte
+          @const = BinaryHelpers::read_s2(io)
 	end
       end
 

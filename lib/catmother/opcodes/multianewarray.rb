@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Multinewarray
@@ -9,11 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Create new multidimensional array"
       DESCRIPTION = ""
 
-	attr_reader :indexbyte1, :indexbyte2, :dimensions
+	attr_reader :index, :dimensions
 
       def initialize(io, pc)
-	@indexbyte1 = io.readbyte
-	@indexbyte2 = io.readbyte
+        @index = BinaryHelpers::read_u2(io)
 	@dimensions = io.readbyte
       end
 

@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Sipush
@@ -9,11 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Push short"
       DESCRIPTION = ""
 
-      attr_reader :byte1, :byte2
+      attr_reader :value
 
       def initialize(io, pc)
-	@byte1 = io.readbyte
-	@byte2 = io.readbyte
+	@value = BinaryHelpers::read_s2(io)
       end
 
       def length

@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Iflt
@@ -9,11 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Branch if int comparison with zero succeeds (< 0)"
       DESCRIPTION = ""
 
-      attr_reader :branchbyte1, :branchbyte2
+      attr_reader :branch_offset
 
       def initialize(io, pc)
-        @branchbyte1 = io.readbyte
-        @branchbyte2 = io.readbyte
+        @branch_offset = BinaryHelpers::read_s2(io)
       end
 
       def length

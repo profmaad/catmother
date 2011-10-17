@@ -13,7 +13,7 @@ module CatMother
       name_index = BinaryHelpers::read_u2(io)
       length = BinaryHelpers::read_u4(io)
 
-      name = @constants[name_index][:value]
+      name = @constants[name_index].value
       attribute_class = @attributes[name]
       if attribute_class.nil?
         return {:name => name, :value => io.read(length)}

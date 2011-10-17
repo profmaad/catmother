@@ -4,11 +4,15 @@ require 'catmother/attribute_parser'
 module CatMother
   class JavaMethod
     class AccessFlag
-      PUBLIC    = 0x0001
-      FINAL     = 0x0010
-      SUPER     = 0x0020
-      INTERFACE = 0x0200
-      ABSTRACT  = 0x0400
+      PUBLIC       = 0x0001
+      PRIVATE      = 0x0002
+      PROTECTED    = 0x0004
+      STATIC       = 0x0008
+      FINAL        = 0x0010
+      SYNCHRONIZED = 0x0020
+      NATIVE       = 0x0100
+      ABSTRACT     = 0x0400
+      STRICT       = 0x0800
     end
 
     attr_reader :access_flags, :name, :descriptor, :attributes
@@ -28,23 +32,35 @@ module CatMother
       end
     end
 
-    def has_access_flag(flag)
+    def has_access_flag?(flag)
       return ((@access_flags & flag) > 0)
     end
-    def is_public
-      return has_access_flag(AccessFlag::PUBLIC)
+    def is_public?
+      return has_access_flag?(AccessFlag::PUBLIC)
     end
-    def is_final
-      return has_access_flag(AccessFlag::FINAL)
+    def is_private?
+      return has_access_flag?(AccessFlag::PRIVATE)
     end
-    def is_super
-      return has_access_flag(AccessFlag::SUPER)
+    def is_protected?
+      return has_access_flag?(AccessFlag::PROTECTED)
     end
-    def is_interface
-      return has_access_flag(AccessFlag::INTERFACE)
+    def is_static?
+      return has_access_flag?(AccessFlag::STATIC)
     end
-    def is_abstract
-      return has_access_flag(AccessFlag::ABSTRACT)
+    def is_final?
+      return has_access_flag?(AccessFlag::FINAL)
+    end
+    def is_synchronized?
+      return has_access_flag?(AccessFlag::SYNCHRONIZED)
+    end
+    def is_native?
+      return has_access_flag?(AccessFlag::NATIVE)
+    end
+    def is_abstract?
+      return has_access_flag?(AccessFlag::ABSTRACT)
+    end
+    def is_strict?
+      return has_access_flag?(AccessFlag::STRICT)
     end
   end
 end

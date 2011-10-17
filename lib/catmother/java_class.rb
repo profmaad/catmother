@@ -215,6 +215,25 @@ module CatMother
       end
     end
 
+    def has_access_flag?(flag)
+      return ((@access_flags & flag) > 0)
+    end
+    def is_public?
+      return has_access_flag?(AccessFlag::PUBLIC)
+    end
+    def is_final?
+      return has_access_flag?(AccessFlag::FINAL)
+    end
+    def is_super?
+      return has_access_flag?(AccessFlag::SUPER)
+    end
+    def is_interface?
+      return has_access_flag?(AccessFlag::INTERFACE)
+    end
+    def is_abstract?
+      return has_access_flag?(AccessFlag::ABSTRACT)
+    end
+
     def name
       return @constants[@constants[@this_class][:value]][:value]
     end

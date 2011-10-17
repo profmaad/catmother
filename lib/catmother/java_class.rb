@@ -2,22 +2,23 @@ require 'catmother/binary_helpers'
 require 'catmother/invalid_classfile_error'
 require 'catmother/attribute_parser'
 require 'catmother/java_method'
+require 'catmother/java_field'
 
 module CatMother
   class JavaClass
     JAVA_CLASS_MAGIC = "\xCA\xFE\xBA\xBE"
     class ConstantType
-      UTF8_STRING = 1
-      INTEGER = 3
-      FLOAT = 4
-      LONG = 5
-      DOUBLE = 6
-      CLASS = 7
-      STRING = 8
-      FIELD = 9
-      METHOD = 10
+      UTF8_STRING      =  1
+      INTEGER          =  3
+      FLOAT            =  4
+      LONG             =  5
+      DOUBLE           =  6
+      CLASS            =  7
+      STRING           =  8
+      FIELD            =  9
+      METHOD           = 10
       INTERFACE_METHOD = 11
-      NAME_AND_TYPE = 12
+      NAME_AND_TYPE    = 12
     end
     class AccessFlag
       PUBLIC    = 0x0001
@@ -180,29 +181,15 @@ module CatMother
       fields_count = BinaryHelpers::read_u2(io)
 
       fields_count.times do
-        parse_field(io)
+        @fields.push(JavaField.new(io, @constants)
       end
-    end
-    def parse_field(io)
-      access_flags = BinaryHelpers::read_u2(io)
-      name = BinaryHelpers::read_u2(io)
-      descriptor = BinaryHelpers::read_u2(io)
-
-      attributes = []
-      attributes_count = BinaryHelpers::read_u2(io)
-      parser = AttributeParser.new(@constants)
-      attributes_count.times do
-        attributes.push(parser.parse(io))
-      end
-
-      @fields.push({:access_flags => access_flags, :name => name, :descriptor => descriptor, :attributes => attributes})
     end
 
     def parse_methods(io)
       methods_count = BinaryHelpers::read_u2(io)
       
       methods_count.times do
-        @methods.push(JavaMethod.new(io,@constants))
+        @methods.push(JavaMethod.new(io, @constants))
       end
     end
 

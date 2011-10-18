@@ -20,6 +20,13 @@ module CatMother
       def length
         return 2
       end
+
+      def operands_to_s
+        return @value
+      end
+      def operands_to_h
+        return {:value => @value}
+      end
     end
   end
 end

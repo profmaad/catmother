@@ -29,6 +29,30 @@ module CatMother
       def length
         return 1
       end
+
+      def operands_to_s
+        return case @atype
+               when ArrayType::BOOLEAN
+                 "boolean"
+               when ArrayType::CHAR
+                 "char"
+               when ArrayType::FLOAT
+                 "float"
+               when ArrayType::DOUBLE
+                 "double"
+               when ArrayType::BYTE
+                 "byte"
+               when ArrayType::SHORT
+                 "short"
+               when ArrayType::INT
+                 "int"
+               when ArrayType::LONG
+                 "long"
+               end
+      end
+      def operands_to_h
+        return {:atype => @atype}
+      end
     end
   end
 end

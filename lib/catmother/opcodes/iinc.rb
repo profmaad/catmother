@@ -1,3 +1,5 @@
+require 'catmother/binary_helpers'
+
 module CatMother
   module Opcode
     class Iinc
@@ -9,15 +11,27 @@ module CatMother
       SHORT_DESCRIPTION = "Increment local variable by constant"
       DESCRIPTION = ""
 
-      attr_reader :index, :const
+      attr_reader :index, :increment
 
       def initialize(io, pc)
 	@index = io.readbyte
-	@const = io.readbyte
+	@increment = BinaryHelpers::read_s1(io)
       end
 
       def length
         return 2
+      end
+
+      def operands_to_s
+        if @increment < 0
+          increment_string = @increment
+        else
+          increment_string = "+#{@increment}"
+        end
+        return "#{@index}, #{increment_string}"
+      end
+      def operands_to_h
+        return {:index => @index, :increment => @increment}
       end
     end
   end

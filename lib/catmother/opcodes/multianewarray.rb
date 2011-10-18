@@ -21,6 +21,14 @@ module CatMother
       def length
         return 3
       end
+
+      def operands_to_s
+        return "#{@index}, #{@dimensions}"
+      end
+
+      def operands_to_h
+        return {:index => @index, :dimensions => @dimensions}
+      end
     end
   end
 end

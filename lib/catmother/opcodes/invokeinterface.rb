@@ -11,16 +11,23 @@ module CatMother
       SHORT_DESCRIPTION = "Invoke interface method"
       DESCRIPTION = ""
 
-      attr_reader :index, :count
+      attr_reader :index, :number_of_arguments
 
       def initialize(io, pc)
 	@index = BinaryHelpers::read_u2(io)
-	@count = io.readbyte
-	io.readbyte #0
+	@number_of_arguments = io.readbyte
+	io.readbyte # 0
       end
 
       def length
         return 4
+      end
+
+      def operands_to_s
+        return "#{@index}, #{@number_of_arguments}"
+      end
+      def operands_to_h
+        return {:index => @index, :number_of_arguments => @number_of_arguments}
       end
     end
   end

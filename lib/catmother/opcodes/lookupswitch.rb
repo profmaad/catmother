@@ -41,6 +41,20 @@ module CatMother
       def length
         return @length
       end
+      
+      def operands_to_s
+        result = "#{@default}, {"
+        @pairs.each do |match,offset|
+          result += "#{match} => #{offset}, "
+        end
+        result = result[0..-3]
+        result += "}"
+
+        return result
+      end
+      def operands_to_h
+        return {:default => @default, :pairs => @pairs}
+      end
     end
   end
 end

@@ -35,6 +35,20 @@ module CatMother
       def length
         return @length
       end
+
+      def operands_to_s
+        result = "#{@default}, #{@low}, #{@high}, ["
+        @jump_offsets.each do |offset|
+          result += "#{offset}, "
+        end
+        result = result[0..-3]
+        result += "]"
+
+        return result
+      end
+      def operands_to_h
+        return {:default => @default, :low => @low, :high => @high, :jump_offsets => @jump_offsets}
+      end
     end
   end
 end

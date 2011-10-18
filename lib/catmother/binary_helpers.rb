@@ -20,6 +20,9 @@ module CatMother
       return io.read(8).unpack("G")[0]
     end
 
+    def self.read_s1(io)
+      unsigned_to_signed1(read_u1(io))
+    end
     def self.read_s2(io)
       unsigned_to_signed2(read_u2(io))
     end
@@ -27,6 +30,13 @@ module CatMother
       unsigned_to_signed4(read_u4(io))
     end
 
+    def self.unsigned_to_signed1(i)
+      if i & 0x80 == 0x80
+        return (i - 0x100)
+      else
+        return i
+      end
+    end
     def self.unsigned_to_signed2(i)
       if i & 0x8000 == 0x8000
         return (i - 0x1_0000)

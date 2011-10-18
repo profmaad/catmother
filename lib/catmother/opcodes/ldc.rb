@@ -1,3 +1,5 @@
+require 'catmother/opcode_groups/constantpool_index_short'
+
 module CatMother
   module Opcode
     class Ldc
@@ -9,14 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Push item from runtime constant pool"
       DESCRIPTION = ""
 
-      attr_reader :index
+      include CatMother::OpcodeGroup::ConstantpoolIndexShort
 
       def initialize(io, pc)
-	@index = io.readbyte
-      end
-
-      def length
-        return 1
+        parse_operands(io)
       end
     end
   end

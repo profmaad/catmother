@@ -1,4 +1,5 @@
 require 'catmother/binary_helpers'
+require 'catmother/opcode_groups/branch_wide'
 
 module CatMother
   module Opcode
@@ -11,14 +12,10 @@ module CatMother
       SHORT_DESCRIPTION = "Branch always (wide index)"
       DESCRIPTION = ""
       
-      attr_reader :branch_offset
+      include CatMother::OpcodeGroup::BranchWide
 
       def initialize(io, pc)
-        @branch_offset = BinaryHelpers::read_s4(io)
-      end
-
-      def length
-        return 4
+        parse_operands(io)
       end
     end
   end

@@ -1,4 +1,5 @@
 require 'catmother/binary_helpers'
+require 'catmother/opcode_groups/constantpool_index'
 
 module CatMother
   module Opcode
@@ -11,14 +12,10 @@ module CatMother
       SHORT_DESCRIPTION = "Push item from runtime constant pool (wide index)"
       DESCRIPTION = ""
 
-      attr_reader :index
+      include CatMother::OpcodeGroup::ConstantpoolIndex
 
       def initialize(io, pc)
-	@index = BinaryHelpers::read_u2(io)
-      end
-
-      def length
-        return 2
+        parse_operands(io)
       end
     end
   end

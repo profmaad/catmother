@@ -19,7 +19,11 @@ module CatMother
         unless opcode_parser.nil?
           result = opcode_parser.new(io, pc)
           disassembly[pc] = result
-          pc += (1+result.length)
+          if result.respond_to? :operands_length
+            pc += (1+result.operands_length)
+          else
+            pc += (1+result.length)
+          end
         else
           puts "unknown opcode: #{opcode}"
           return nil

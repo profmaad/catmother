@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'catmother'
+
+require 'pp'
+
+input_filename = ARGV.shift
+
+if input_filename.nil?
+  puts "Need to specify input file"
+  exit
+end
+
+java_class = CatMother::JavaClass.new(input_filename)
+puts "Class Name: #{java_class.name}"
+puts "Class File Version: #{java_class.version}"
+puts "Constant Pool:"
+java_class.constants.each_with_index do |constant, index|
+  next if index == 0
+  print "\t#{index}: "
+  PP::singleline_pp constant
+  puts
+end
+puts "Methods: "
+java_class.methods.each do |m|
+  name = java_class.constants[m.name].value
+  descriptor = java_class.constants[m.descriptor].value
+  puts "\t#{name}, #{descriptor}"
+  
+  code_attribute = m.attributes.reject {|a| a[:name] != "Code"}[0]
+  code_attribute[:value].disassembly.each do |pc,opcode|
+    mnemonic = opcode.class::MNEMONIC
+    operands = (opcode.respond_to?(:operands_to_s) ? opcode.operands_to_s : "")
+    puts "\t\t#{pc}:\t#{opcode.class::MNEMONIC}\t#{operands}"
+  end
+end
+print "Attributes: "
+pp java_class.attributes

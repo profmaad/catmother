@@ -91,11 +91,8 @@ module CatMother
       interfaces_count = BinaryHelpers::read_u2(io)
 
       interfaces_count.times do
-        parse_interface(io)
+        @interfaces.push(BinaryHelpers::read_u2(io))
       end
-    end
-    def parse_interface(io)
-      @interfaces.push(BinaryHelpers::read_u2(io))
     end
 
     def parse_fields(io)

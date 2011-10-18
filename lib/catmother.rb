@@ -12,3 +12,6 @@ end
 Dir[File.dirname(__FILE__) + "/catmother/opcodes/*.rb"].each do |file|
   require file
 end
+Dir[File.dirname(__FILE__) + "/catmother/opcode_groups/*.rb"].each do |file|
+  require file
+end

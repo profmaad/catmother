@@ -1,4 +1,5 @@
-require  'catmother/binary_helpers'
+require 'catmother/binary_helpers'
+require 'catmother/opcode_groups/branch'
 
 module CatMother
   module Opcode
@@ -11,15 +12,12 @@ module CatMother
       SHORT_DESCRIPTION = "Branch if reference comparison succeeds (equal)"
       DESCRIPTION = ""
 
-      attr_reader :branch_offset
+      include CatMother::OpcodeGroup::Branch
 
       def initialize(io, pc)
-        @branch_offset = BinaryHelpers::read_s2(io)
+        parse_operands(io)
       end
 
-      def length
-        return 2
-      end
     end
   end
 end

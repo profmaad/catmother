@@ -1,3 +1,5 @@
+require 'catmother/opcode_groups/local_variable_index'
+
 module CatMother
   module Opcode
     class Lload
@@ -9,14 +11,10 @@ module CatMother
       SHORT_DESCRIPTION = "Load long from local variable"
       DESCRIPTION = ""
 
-      attr_reader :index
+      include CatMother::OpcodeGroup::LocalVariableIndex
 
       def initialize(io, pc)
-	@index = io.readbyte
-      end
-
-      def length
-        return 1
+        parse_operands(io)
       end
     end
   end

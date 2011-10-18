@@ -12,6 +12,19 @@ if input_filename.nil?
   exit
 end
 
+# find longest opcode mnemonic for padding
+@longest_mnemonic = CatMother::Opcode.constants.map{ |constant| constant.length }.max
+
+def format_instruction(instruction)
+  padding_length = (@longest_mnemonic-instruction.class::MNEMONIC.length)+1
+  
+  result = instruction.class::MNEMONIC
+  result += " "*padding_length
+  result += (instruction.respond_to?(:operands_to_s) ? instruction.operands_to_s.to_s : "")
+
+  return result
+end
+
 java_class = CatMother::JavaClass.new(input_filename)
 puts "Class Name: #{java_class.name}"
 puts "Class File Version: #{java_class.version}"
@@ -30,9 +43,7 @@ java_class.methods.each do |m|
   
   code_attribute = m.attributes.reject {|a| a[:name] != "Code"}[0]
   code_attribute[:value].disassembly.each do |pc,opcode|
-    mnemonic = opcode.class::MNEMONIC
-    operands = (opcode.respond_to?(:operands_to_s) ? opcode.operands_to_s : "")
-    puts "\t\t#{pc}:\t#{opcode.class::MNEMONIC}\t#{operands}"
+    puts "\t\t#{pc}:\t#{format_instruction(opcode)}"
   end
 end
 print "Attributes: "

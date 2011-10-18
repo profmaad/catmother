@@ -145,5 +145,47 @@ module CatMother
     def version
       return "#{@major_version}.#{@minor_version}"
     end
+
+    def constant_to_s(index) 
+      constant = @constants[index]
+      result = case constant.tag
+               when JavaConstant::ConstantType::UTF8_STRING
+                 constant.value
+               when JavaConstant::ConstantType::INTEGER
+                 constant.value
+               when JavaConstant::ConstantType::FLOAT
+                 constant.value
+               when JavaConstant::ConstantType::LONG
+                 constant.value
+               when JavaConstant::ConstantType::DOUBLE
+                 constant.value
+               when JavaConstant::ConstantType::CLASS
+                 constant_to_s(constant.value)
+               when JavaConstant::ConstantType::STRING
+                 constant_to_s(constant.value)
+               when JavaConstant::ConstantType::FIELD
+                 class_name = constant_to_s(constant.value[:class])
+                 name_and_type = constant_to_s(constant.value[:name_and_type])
+
+                 return "#{class_name}.#{name_and_type}"
+               when JavaConstant::ConstantType::METHOD
+                 class_name = constant_to_s(constant.value[:class])
+                 name_and_type = constant_to_s(constant.value[:name_and_type])
+
+                 return "#{class_name}.#{name_and_type}"
+               when JavaConstant::ConstantType::INTERFACE_METHOD
+                 class_name = constant_to_s(constant.value[:class])
+                 name_and_type = constant_to_s(constant.value[:name_and_type])
+
+                 return "#{class_name}.#{name_and_type}"
+               when JavaConstant::ConstantType::NAME_AND_TYPE
+                 name = constant_to_s(constant.value[:name])
+                 descriptor = constant_to_s(constant.value[:descriptor])
+
+                 return "#{name} #{descriptor}"
+               end
+
+      return result
+    end
   end
 end

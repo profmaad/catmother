@@ -31,9 +31,10 @@ puts "Class File Version: #{java_class.version}"
 puts "Constant Pool:"
 java_class.constants.each_with_index do |constant, index|
   next if index == 0
+  next if ((constant.tag == CatMother::JavaConstant::ConstantType::UTF8_STRING) or (constant.tag == CatMother::JavaConstant::ConstantType::NAME_AND_TYPE))
   print "\t#{index}: "
   PP::singleline_pp constant
-  puts
+  puts " (#{java_class.constant_to_s(index)})"
 end
 puts "Methods: "
 java_class.methods.each do |m|

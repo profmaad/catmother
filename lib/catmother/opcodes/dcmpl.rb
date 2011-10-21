@@ -14,6 +14,7 @@ module CatMother
       include CatMother::OpcodeGroup::NoOperands
 
       def initialize(io, pc)
+        parse_operands(io, pc)
       end
     end
   end

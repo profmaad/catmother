@@ -14,7 +14,7 @@ module CatMother
       end
 
       def operands_to_s
-        return @branch_offset
+        return @branch_offset.to_s
       end
       def operands_to_h
         return {:branch_offset => @branch_offset}

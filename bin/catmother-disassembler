@@ -20,7 +20,7 @@ def format_instruction(instruction)
   
   result = instruction.class::MNEMONIC
   result += " "*padding_length
-  result += instruction.operands_to_s.to_s
+  result += instruction.operands_to_s
 
   return result
 end

@@ -26,7 +26,7 @@ module CatMother
       end
 
       def operands_to_s
-        return @value
+        return @value.to_s
       end
       def operands_to_h
         return {:value => @value}

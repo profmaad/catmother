@@ -14,7 +14,7 @@ module CatMother
       end
 
       def operands_to_s
-        return @index
+        return @index.to_s
       end
       def operands_to_h
         return {:index => @index}

@@ -12,10 +12,14 @@ module CatMother
       attr_reader :value
       
       def initialize(io, pc)
+        parse_operands(io, pc)
+      end
+
+      def parse_operands(io, pc)
 	@value = io.readbyte
       end
 
-      def length
+      def operands_length
         return 1
       end
 

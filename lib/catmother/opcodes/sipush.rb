@@ -14,10 +14,14 @@ module CatMother
       attr_reader :value
 
       def initialize(io, pc)
+        parse_operands(io, pc)
+      end
+      
+      def parse_operands(io, pc)
 	@value = BinaryHelpers::read_s2(io)
       end
 
-      def length
+      def operands_length
         return 2
       end
 

@@ -1,3 +1,5 @@
+require 'catmother/opcode_groups/no_operands'
+
 module CatMother
   module Opcode
     class Iconst_3
@@ -9,11 +11,9 @@ module CatMother
       SHORT_DESCRIPTION = "Push int constant"
       DESCRIPTION = ""
 
-      def initialize(io, pc)
-      end
+      include CatMother::OpcodeGroup::NoOperands
 
-      def length
-        return 0
+      def initialize(io, pc)
       end
     end
   end

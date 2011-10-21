@@ -1,3 +1,5 @@
+require 'catmother/opcode_groups/no_operands'
+
 module CatMother
   module Opcode
     class F2d
@@ -9,11 +11,9 @@ module CatMother
       SHORT_DESCRIPTION = "Convert float to double"
       DESCRIPTION = ""
 
-      def initialize(io, pc)
-      end
+      include CatMother::OpcodeGroup::NoOperands
 
-      def length
-        return 0
+      def initialize(io, pc)
       end
     end
   end

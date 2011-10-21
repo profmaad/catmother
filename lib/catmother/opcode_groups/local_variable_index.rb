@@ -5,7 +5,7 @@ module CatMother
     module LocalVariableIndex
       attr_reader :index
 
-      def parse_operands(io)
+      def parse_operands(io, pc)
         @index = io.readbyte
       end
 

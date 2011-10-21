@@ -14,12 +14,16 @@ module CatMother
       attr_reader :index, :number_of_arguments
 
       def initialize(io, pc)
+        parse_operands(io, pc)
+      end
+
+      def parse_operands(io, pc)
 	@index = BinaryHelpers::read_u2(io)
 	@number_of_arguments = io.readbyte
 	io.readbyte # 0
       end
 
-      def length
+      def operands_length
         return 4
       end
 

@@ -14,6 +14,10 @@ module CatMother
       attr_reader :default, :low, :high, :jump_offsets
 
       def initialize(io, pc)
+        parse_operands(io, pc)
+      end
+      
+      def parse_operands(io, pc)
         @length = 12
 
         (4-((pc%4)+1)).times do
@@ -32,7 +36,7 @@ module CatMother
         @length += ((@high-@low+1)*4)
       end
 
-      def length
+      def operands_length
         return @length
       end
 

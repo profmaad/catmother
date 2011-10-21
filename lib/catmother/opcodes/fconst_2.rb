@@ -1,3 +1,5 @@
+require 'catmother/opcode_groups/no_operands'
+
 module CatMother
   module Opcode
     class Fconst_2
@@ -9,11 +11,9 @@ module CatMother
       SHORT_DESCRIPTION = "Push float"
       DESCRIPTION = "Push the float constant 2.0 onto the operand stack."
 
-      def initialize(io, pc)
-      end
+      include CatMother::OpcodeGroup::NoOperands
 
-      def length
-        return 0
+      def initialize(io, pc)
       end
     end
   end

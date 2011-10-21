@@ -15,7 +15,7 @@ module CatMother
       include CatMother::OpcodeGroup::ConstantpoolIndex
 
       def initialize(io, pc)
-        parse_operands(io)
+        parse_operands(io, pc)
       end
     end
   end

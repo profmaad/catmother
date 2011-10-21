@@ -23,10 +23,14 @@ module CatMother
       attr_reader :atype
 
       def initialize(io, pc)
+        parse_operands(io, pc)
+      end
+
+      def parse_operands(io, pc)
 	@atype = io.readbyte
       end
 
-      def length
+      def operands_length
         return 1
       end
 

@@ -16,8 +16,12 @@ module CatMother
       attr_reader :pairs
 
       def initialize(io, pc)
-        @length = 8
+        parse_operands(io, pc)
+      end
 
+      def parse_operands(io, pc)
+        @length = 8
+        
         (4-((pc%4)+1)).times do
           io.readbyte
           @length += 1
@@ -38,7 +42,7 @@ module CatMother
         @length += @npairs*8
       end
 
-      def length
+      def operands_length
         return @length
       end
       

@@ -5,7 +5,7 @@ module CatMother
     module ConstantpoolIndex
       attr_reader :index
 
-      def parse_operands(io)
+      def parse_operands(io, pc)
         @index = BinaryHelpers::read_u2(io)
       end
 

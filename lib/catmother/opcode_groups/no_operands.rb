@@ -2,22 +2,19 @@ require 'catmother/binary_helpers'
 
 module CatMother
   module OpcodeGroup
-    module ConstantpoolIndexShort
-      attr_reader :index
-
+    module NoOperands
       def parse_operands(io, pc)
-        @index = io.readbyte
       end
 
       def operands_length
-        return 1
+        return 0
       end
 
       def operands_to_s
-        return @index
+        return ""
       end
       def operands_to_h
-        return {:index => @index}
+        return {}
       end
     end
   end

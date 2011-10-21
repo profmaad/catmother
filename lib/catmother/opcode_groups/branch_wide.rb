@@ -5,7 +5,7 @@ module CatMother
     module BranchWide
       attr_reader :branch_offset
 
-      def parse_operands(io)
+      def parse_operands(io, pc)
         @branch_offset = BinaryHelpers::read_s4(io)
       end
 

@@ -1,3 +1,5 @@
+require 'catmother/opcode_groups/no_operands'
+
 module CatMother
   module Opcode
     class Dstore_2
@@ -9,11 +11,9 @@ module CatMother
       SHORT_DESCRIPTION = "Store double into local variable"
       DESCRIPTION = ""
 
-      def initialize(io, pc)
-      end
+      include CatMother::OpcodeGroup::NoOperands
 
-      def length
-        return 0
+      def initialize(io, pc)
       end
     end
   end

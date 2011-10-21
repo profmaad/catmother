@@ -15,6 +15,10 @@ module CatMother
       attr_reader :increment
 
       def initialize(io, pc)
+        parse_operands(io, pc)
+      end
+
+      def parse_operands(io, pc)
 	@opcode = io.readbyte
 	@index = BinaryHelpers::read_u2(io)
 
@@ -23,7 +27,7 @@ module CatMother
 	end
       end
 
-      def length
+      def operands_length
         return 3
       end
 

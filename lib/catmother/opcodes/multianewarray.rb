@@ -14,11 +14,15 @@ module CatMother
 	attr_reader :index, :dimensions
 
       def initialize(io, pc)
+        parse_operands(io, pc)
+      end
+
+      def parse_operands(io, pc)
         @index = BinaryHelpers::read_u2(io)
 	@dimensions = io.readbyte
       end
 
-      def length
+      def operands_length
         return 3
       end
 

@@ -1,3 +1,5 @@
+require 'catmother/opcode_groups/no_operands'
+
 module CatMother
   module Opcode
     class Dup2_x1
@@ -9,11 +11,9 @@ module CatMother
       SHORT_DESCRIPTION = "Duplicate the top one or two operand stack values and insert two or three values down"
       DESCRIPTION = ""
 
-      def initialize(io, pc)
-      end
+      include CatMother::OpcodeGroup::NoOperands
 
-      def length
-        return 0
+      def initialize(io, pc)
       end
     end
   end

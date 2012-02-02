@@ -9,5 +9,5 @@ Gem::Specification.new do |s|
   s.license = "BSD"
 
   s.files = FileList["lib/**/*.rb", "lib/catmother.rb" "bin/*", "README.md", "LICENSE"]
-  s.executables << "catmother" << "catmother-disassembler"
+  s.executables << "catmother" << "catmother-disassembler" << "catmother-bytecodeexporter" << "catmother-disassembler-raw"
 end

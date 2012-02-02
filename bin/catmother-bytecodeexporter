@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'catmother'
+
+require 'pp'
+
+input_filename = ARGV.shift
+
+if input_filename.nil?
+  puts "Need to specify input file"
+  exit
+end
+
+java_class = CatMother::JavaClass.new(input_filename)
+puts "Class Name: #{java_class.name}"
+puts "Class File Version: #{java_class.version}"
+
+io = File.open(input_filename, 'rb')
+
+java_class.methods.each do |m|
+  name = java_class.constants[m.name].value
+
+  code_attribute = m.attributes.reject {|a| a[:name] != "Code"}[0][:value]
+  code_attribute.read_code(io)
+  
+  max_stack = code_attribute.max_stack
+  max_locals = code_attribute.max_locals
+
+  puts "#{name}: #{max_stack}/#{max_locals}/#{code_attribute.code.length}"
+
+  name = name.downcase.gsub('<','-').gsub('>','-')
+  output = File.open("#{java_class.name.downcase}_#{name}", 'wb')
+  output.write([max_stack,max_locals].pack('nn'))
+  output.write(code_attribute.code)
+  output.close
+end
+
+io.close

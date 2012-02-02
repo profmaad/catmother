@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'catmother'
+
+require 'pp'
+
+input_filename = ARGV.shift
+
+if input_filename.nil?
+  puts "Need to specify input file"
+  exit
+end
+
+# find longest opcode mnemonic for padding
+@longest_mnemonic = CatMother::Opcode.constants.map{ |constant| constant.length }.max
+
+def format_instruction(instruction)
+  padding_length = (@longest_mnemonic-instruction.class::MNEMONIC.length)+1
+  
+  result = instruction.class::MNEMONIC
+  result += " "*padding_length
+  result += instruction.operands_to_s
+
+  return result
+end
+
+io = File.open(input_filename, 'rb')
+
+max_stack = io.read(2).unpack("n")[0]
+max_locals = io.read(2).unpack("n")[0]
+
+puts "max stack size: #{max_stack}"
+puts "max local variables: #{max_locals}"
+
+disassembly = CatMother::BytecodeParser.new.parse(io, io.size-4)
+disassembly.each do |pc, opcode|
+  puts "\t#{pc}:\t#{format_instruction(opcode)}"
+end
+
+io.close

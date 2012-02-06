@@ -24,14 +24,19 @@ java_class.methods.each do |m|
   code_attribute = m.attributes.reject {|a| a[:name] != "Code"}[0][:value]
   code_attribute.read_code(io)
   
+  descriptor = java_class.constants[m.descriptor].value
+  if descriptor =~ /\(.*\)(.).*/
+    return_type = $1
+  end
   max_stack = code_attribute.max_stack
   max_locals = code_attribute.max_locals
 
-  puts "#{name}: #{max_stack}/#{max_locals}/#{code_attribute.code.length}"
+  puts "#{name}/#{return_type}: #{max_stack}/#{max_locals}/#{code_attribute.code.length}"
 
   name = name.downcase.gsub('<','-').gsub('>','-')
   output = File.open("#{java_class.name.downcase}_#{name}", 'wb')
   output.write([max_stack,max_locals].pack('nn'))
+  output.write(return_type)
   output.write(code_attribute.code)
   output.close
 end
